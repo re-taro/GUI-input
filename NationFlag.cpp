@@ -11,6 +11,57 @@ HINSTANCE hInst;                                // 現在のインターフェ�
 WCHAR szTitle[MAX_LOADSTRING];                  // タイトル バーのテキスト
 WCHAR szWindowClass[MAX_LOADSTRING];            // メイン ウィンドウ クラス名
 
+void Italy(HDC hdc, int x, int y)
+{
+    //GREEN
+    SelectObject(hdc, GetStockObject(DC_PEN));
+    SelectObject(hdc, GetStockObject(DC_BRUSH));
+    SetDCBrushColor(hdc, RGB(0, 149, 69));
+    SetDCBrushColor(hdc, RGB(0, 149, 69));
+    Rectangle(hdc, x, y,x + static_cast<int>(400 / 3), y + static_cast<int>(800 / 3));
+    //WHITE
+    SelectObject(hdc, GetStockObject(DC_PEN));
+    SelectObject(hdc, GetStockObject(DC_BRUSH));
+    SetDCBrushColor(hdc, RGB(244, 249, 255));
+    SetDCBrushColor(hdc, RGB(244, 249, 255));
+    Rectangle(hdc, x + static_cast<int>(400 / 3), y, x + static_cast<int>(800 / 3), y + static_cast<int>(800 / 3));
+    //RED
+    SelectObject(hdc, GetStockObject(DC_PEN));
+    SelectObject(hdc, GetStockObject(DC_BRUSH));
+    SetDCBrushColor(hdc, RGB(205, 33, 42));
+    SetDCBrushColor(hdc, RGB(205, 33, 42));
+    Rectangle(hdc, x + static_cast<int>(800 / 3), y, x + 400, y + static_cast<int>(800 / 3));
+}
+
+void Jordan(HDC hdc, int x, int y)
+{
+    //BRACK
+    SelectObject(hdc, GetStockObject(DC_PEN));
+    SelectObject(hdc, GetStockObject(DC_BRUSH));
+    SetDCBrushColor(hdc, RGB(0, 0, 0));
+    SetDCBrushColor(hdc, RGB(0, 0, 0));
+    Rectangle(hdc, x, y, x + 400, y + static_cast<int>(200 / 3));
+    //WHITE
+    SelectObject(hdc, GetStockObject(DC_PEN));
+    SelectObject(hdc, GetStockObject(DC_BRUSH));
+    SetDCBrushColor(hdc, RGB(255, 255, 255));
+    SetDCBrushColor(hdc, RGB(255, 255, 255));
+    Rectangle(hdc, x, y + static_cast<int>(200 / 3), x + 400, y + static_cast<int>(400 / 3));
+    //GREEN
+    SelectObject(hdc, GetStockObject(DC_PEN));
+    SelectObject(hdc, GetStockObject(DC_BRUSH));
+    SetDCBrushColor(hdc, RGB(0, 115, 54));
+    SetDCBrushColor(hdc, RGB(0, 115, 54));
+    Rectangle(hdc, x, y + static_cast<int>(400 / 3), x + 400, 200);
+    //RED
+    SelectObject(hdc, GetStockObject(DC_PEN));
+    SelectObject(hdc, GetStockObject(DC_BRUSH));
+    SetDCBrushColor(hdc, RGB(207, 20, 43));
+    SetDCBrushColor(hdc, RGB(207, 20, 43));
+    POINT p[3] = { {x, y}, {x + static_cast<int>(100 * 3 ^ (1 / 2)), y + 100},  {x, y + 200} };
+    Polygon(hdc, p, 3);
+}
+
 // このコード モジュールに含まれる関数の宣言を転送します:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
@@ -146,7 +197,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
-            // TODO: HDC を使用する描画コードをここに追加してください...
+            Italy(hdc, 10, 10);
+            Jordan(hdc, 420, 10);
             EndPaint(hWnd, &ps);
         }
         break;
