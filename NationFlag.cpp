@@ -3,6 +3,7 @@
 
 #include "framework.h"
 #include "NationFlag.h"
+#include<math.h>
 
 #define MAX_LOADSTRING 100
 
@@ -52,13 +53,13 @@ void Jordan(HDC hdc, int x, int y)
     SelectObject(hdc, GetStockObject(DC_BRUSH));
     SetDCBrushColor(hdc, RGB(0, 115, 54));
     SetDCBrushColor(hdc, RGB(0, 115, 54));
-    Rectangle(hdc, x, y + static_cast<int>(400 / 3), x + 400, 200);
+    Rectangle(hdc, x, y + static_cast<int>(400 / 3), x + 400, y + 200);
     //RED
     SelectObject(hdc, GetStockObject(DC_PEN));
     SelectObject(hdc, GetStockObject(DC_BRUSH));
     SetDCBrushColor(hdc, RGB(207, 20, 43));
     SetDCBrushColor(hdc, RGB(207, 20, 43));
-    POINT p[3] = { {x, y}, {x + static_cast<int>(100 * 3 ^ (1 / 2)), y + 100},  {x, y + 200} };
+    POINT p[3] = { {x, y}, {x + static_cast<int>(100 * sqrt(3)), y + 100},  {x, y + 200} };
     Polygon(hdc, p, 3);
 }
 
