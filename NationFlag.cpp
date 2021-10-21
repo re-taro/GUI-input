@@ -59,8 +59,14 @@ void Jordan(HDC hdc, int x, int y)
     SelectObject(hdc, GetStockObject(DC_BRUSH));
     SetDCBrushColor(hdc, RGB(207, 20, 43));
     SetDCBrushColor(hdc, RGB(207, 20, 43));
-    POINT p[3] = { {x, y}, {x + static_cast<int>(100 * sqrt(3)), y + 100},  {x, y + 200} };
-    Polygon(hdc, p, 3);
+    POINT p1[3] = { {x, y}, {x + static_cast<int>(100 * sqrt(3)), y + 100},  {x, y + 200} };
+    Polygon(hdc, p1, 3);
+    //STAR
+    SelectObject(hdc, GetStockObject(DC_PEN));
+    SelectObject(hdc, GetStockObject(DC_BRUSH));
+    SetDCBrushColor(hdc, RGB(255, 255, 255));
+    SetDCBrushColor(hdc, RGB(255, 255, 255));
+    Ellipse(hdc, static_cast<int>(x + static_cast<int>(100 * sqrt(3)) - 110) - 10, y + 90, static_cast<int>(x + static_cast<int>(100 * sqrt(3)) - 110) + 10, y + 110);
 }
 
 // このコード モジュールに含まれる関数の宣言を転送します:
