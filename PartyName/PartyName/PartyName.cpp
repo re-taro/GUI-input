@@ -10,6 +10,8 @@
 HINSTANCE hInst;                                // 現在のインターフェイス
 WCHAR szTitle[MAX_LOADSTRING];                  // タイトル バーのテキスト
 WCHAR szWindowClass[MAX_LOADSTRING];            // メイン ウィンドウ クラス名
+HFONT hfonts[5];
+TCHAR str[100];
 
 // このコード モジュールに含まれる関数の宣言を転送します:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -146,8 +148,56 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
-            // TODO: HDC を使用する描画コードをここに追加してください...
+            SetBkMode(hdc, TRANSPARENT); 
+            SetTextColor(hdc, RGB(135, 90, 132)); 
+            SelectObject(hdc, hfonts[0]);  
+            lstrcpy(str, TEXT("糸")); 
+            TextOut(hdc, 10, 80, str, lstrlen(str));
+            SetBkMode(hdc, TRANSPARENT);
+            SetTextColor(hdc, RGB(135, 190, 120));
+            SelectObject(hdc, hfonts[1]);
+            lstrcpy(str, TEXT("川"));
+            TextOut(hdc, 100, 10, str, lstrlen(str));
+            SetBkMode(hdc, TRANSPARENT);
+            SetTextColor(hdc, RGB(15, 190, 221));
+            SelectObject(hdc, hfonts[2]);
+            lstrcpy(str, TEXT("倫"));
+            TextOut(hdc, 350, 80, str, lstrlen(str));
+            SetBkMode(hdc, TRANSPARENT);
+            SetTextColor(hdc, RGB(178, 40, 111));
+            SelectObject(hdc, hfonts[3]);
+            lstrcpy(str, TEXT("太"));
+            TextOut(hdc, 40, 200, str, lstrlen(str));
+            SetBkMode(hdc, TRANSPARENT);
+            SetTextColor(hdc, RGB(15, 210, 22));
+            SelectObject(hdc, hfonts[4]);
+            lstrcpy(str, TEXT("朗"));
+            TextOut(hdc, 200, 400, str, lstrlen(str));
             EndPaint(hWnd, &ps);
+            break;
+        }
+        break;
+    case WM_CREATE:
+        hfonts[0] = CreateFont(50, 50, 0, 0, 
+            FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, 
+            TEXT("BIZ UDPゴシック"));
+        hfonts[1] = CreateFont(100, 100, 0, 0,
+            FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE,
+            TEXT("游明朝"));
+        hfonts[2] = CreateFont(150, 150, 0, 0,
+            FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE,
+            TEXT("HG行書体"));
+        hfonts[3] = CreateFont(200, 200, 0, 0,
+            FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE,
+            TEXT("MSゴシック"));
+        hfonts[4] = CreateFont(250, 250, 0, 0,
+            FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE,
+            TEXT("HGS行書体"));
+        break;
+    case WM_CLOSE:
+        for (int i = 0; i < 5; i++)
+        {
+            DeleteObject(hfonts[i]);
         }
         break;
     case WM_DESTROY:
