@@ -3,6 +3,7 @@
 
 #include "framework.h"
 #include "Drawer-smooth.h"
+#include <windowsx.h>
 
 #define MAX_LOADSTRING 100
 
@@ -10,6 +11,7 @@
 HINSTANCE hInst;                                // 現在のインターフェイス
 WCHAR szTitle[MAX_LOADSTRING];                  // タイトル バーのテキスト
 WCHAR szWindowClass[MAX_LOADSTRING];            // メイン ウィンドウ クラス名
+int mx, my, mxo, myo;
 
 // このコード モジュールに含まれる関数の宣言を転送します:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -140,6 +142,22 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             default:
                 return DefWindowProc(hWnd, message, wParam, lParam);
             }
+        }
+        break;
+    case WM_CREATE:
+        mx = -100;
+        my = -100;
+        mxo = -100;
+        myo = -100;
+    case WM_LBUTTONDOWN:
+    case WM_MOUSEMOVE:
+        mxo = mx;
+        myo = my;
+        if (wParam & MK_LBUTTON)
+        {
+            mx = GET_X_LPARAM(lParam);
+            my = GET_Y_LPARAM(lParam);
+            InvalidateRect(hWnd, NULL, FALSE);
         }
         break;
     case WM_PAINT:
