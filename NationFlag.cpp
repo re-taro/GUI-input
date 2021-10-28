@@ -11,6 +11,7 @@
 HINSTANCE hInst;                                // 現在のインターフェイス
 WCHAR szTitle[MAX_LOADSTRING];                  // タイトル バーのテキスト
 WCHAR szWindowClass[MAX_LOADSTRING];            // メイン ウィンドウ クラス名
+int kx, ky;
 
 void Italy(HDC hdc, int x, int y)
 {
@@ -204,10 +205,31 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
-            Italy(hdc, 10, 10);
-            Jordan(hdc, 420, 10);
+            Italy(hdc, kx, ky);
             EndPaint(hWnd, &ps);
         }
+        break;
+    case WM_CREATE:
+        kx = 10;
+        ky = 10;
+        break;
+    case WM_KEYDOWN:
+        switch(wParam) 
+        {
+        case VK_UP:
+            ky--;
+            break;
+        case VK_DOWN:
+            ky++;
+            break;
+        case VK_LEFT:
+            kx--;
+            break;
+        case VK_RIGHT:
+            kx++;
+            break;
+        }
+        InvalidateRect(hWnd, NULL, TRUE);
         break;
     case WM_DESTROY:
         PostQuitMessage(0);
