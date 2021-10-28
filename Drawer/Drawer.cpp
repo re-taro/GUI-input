@@ -166,7 +166,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             mx = GET_X_LPARAM(lParam);
             my = GET_Y_LPARAM(lParam);
             InvalidateRect(hWnd, NULL, FALSE);
-            break;
         }
         break;
     case WM_DESTROY:
