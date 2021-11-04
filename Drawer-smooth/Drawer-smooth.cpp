@@ -149,6 +149,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         my = -100;
         mxo = -100;
         myo = -100;
+        break;
     case WM_LBUTTONDOWN:
     case WM_MOUSEMOVE:
         mxo = mx;
@@ -160,11 +161,21 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             InvalidateRect(hWnd, NULL, FALSE);
         }
         break;
+    case WM_LBUTTONUP:
+        mx = -100;
+        my = -100;
+        mxo = -100;
+        myo = -100;
+        break;
     case WM_PAINT:
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
-            // TODO: HDC を使用する描画コードをここに追加してください...
+            if (mx > 0 && my > 0 && mxo > 0 && myo > 0)
+            {
+                MoveToEx(hdc, mxo, myo, NULL);
+                LineTo(hdc, mx, my);
+            }
             EndPaint(hWnd, &ps);
         }
         break;
